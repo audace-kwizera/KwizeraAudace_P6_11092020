@@ -6,8 +6,20 @@ const express = require('express');
 /** Importation bodyParser */
 const bodyParser = require('body-parser');
 
+/**
+ * Package pour faciliter les interaction avec la base de donnée Mongoose 
+ * du coup pour on va l'importer 
+ * */
+ const mongoose = require('mongoose');
+
 /** Notre application */
 const app = express();
+
+mongoose.connect('mongodb+srv://audi:JESUSmylove2018$@cluster0.2jhub.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 /**
  * Header mentionnée pour toutes les requêtes pour permettre aux users d'utiliser l'api 

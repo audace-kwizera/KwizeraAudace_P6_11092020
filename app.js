@@ -12,6 +12,9 @@ const bodyParser = require('body-parser');
  * */
  const mongoose = require('mongoose');
 
+ /** Importation des sauces */
+ const Sauce = require('./models/Sauce');
+
 /** Notre application */
 const app = express();
 
@@ -34,5 +37,18 @@ app.use((req, res, next) => {
   });
 
 app.use(bodyParser.json());
+
+/*
+app.post('/api/sauces', (req, res, next) => {
+  delete req.body._id;
+  const sauce = new Sauce({
+    ...req.body
+  });
+  Sauce.save()
+    .then(() => res.status(201).json({ message: 'objet enregistre' }))
+    .catch(error => res.status(400).json({error}));
+});
+
+*/
 
 module.exports = app;

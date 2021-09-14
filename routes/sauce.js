@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 /** Importation des sauces */
-const sauceCtrl = require('../controllers/sauces');
+const sauceCtrl = require('../controllers/sauce');
 
 
 module.exports = router;

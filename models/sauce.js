@@ -1,7 +1,7 @@
 /** Importation de mongoose */
 const mongoose = require('mongoose');
 
-const sauceSchema = mongoose.Schema({
+const modelsSauce = mongoose.Schema({
     userId: { type: String, require: true },
     name: { type: String, require: true },
     manufacturer: { type: String, require: true },
@@ -15,4 +15,4 @@ const sauceSchema = mongoose.Schema({
     usersDisliked: { type: String, require: true }
 });
 
-module.exports = mongoose.model('Sauce', sauceSchema);
+module.exports = mongoose.model('Sauce', modelsSauce);

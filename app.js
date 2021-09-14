@@ -13,7 +13,8 @@ const bodyParser = require('body-parser');
  const mongoose = require('mongoose');
 
  /** Importation du router */
- const saucesRoutes = require('./routes/sauces');
+const saucesRoutes = require('./routes/sauce');
+const userRoutes = require('./routes/user');
 
 /** Notre application */
 const app = express();
@@ -38,7 +39,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/api/sauces', saucesRoutes);
+app.use('/api/sauce', saucesRoutes);
+app.use('/api/auth', userRoutes);
 
 /*
 app.post('/api/sauces', (req, res, next) => {

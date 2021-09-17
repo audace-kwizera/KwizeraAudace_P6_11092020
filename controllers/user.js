@@ -41,7 +41,7 @@ exports.login = (req, res, next) => {
                         token: jwt.sign(
                             { userId: user._id },
                             'CLE_SECRETE_POUR_ENCODAGE_LOCAL',
-                            { expiresIn: '1h' }
+                            { expiresIn: '24h' }
                         )
                     });
                 })

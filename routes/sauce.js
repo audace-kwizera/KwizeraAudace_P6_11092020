@@ -7,5 +7,10 @@ const router = express.Router();
 /** Importation des sauces */
 const sauceCtrl = require('../controllers/sauce');
 
+/** Importation du middleware auth */
+const auth = require('../middleware/auth');
+
+
+
 
 module.exports = router;

@@ -11,7 +11,7 @@ const userCtrl = require('../controllers/user');
  * enverra l'addresse mail et le mot de passe 
  * */
 router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login)
+router.post('/login', userCtrl.login);
 
 
 module.exports = router;

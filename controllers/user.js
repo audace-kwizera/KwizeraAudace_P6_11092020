@@ -1,5 +1,6 @@
 /** Importation du hash */
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 /**Importation du modèle user */
 const User = require('../models/User');
@@ -37,7 +38,11 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user._id,
-                        token: 'TOKEN'
+                        token: jwt.sign(
+                            { userId: user._id },
+                            'CLE_SECRETE_POUR_ENCODAGE_LOCAL',
+                            { expiresIn: '1h' }
+                        )
                     });
                 })
                 .catch(error => res.status(500).json({ error }));

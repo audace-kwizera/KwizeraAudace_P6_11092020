@@ -12,6 +12,9 @@ const bodyParser = require('body-parser');
  * */
  const mongoose = require('mongoose');
 
+ /** Importation de node */
+ const path = require('path');
+
  /** Importation du router */
 const saucesRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
@@ -39,6 +42,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauce', saucesRoutes);
 app.use('/api/auth', userRoutes);
 
@@ -54,5 +58,4 @@ app.post('/api/sauces', (req, res, next) => {
 });
 
 */
-
 module.exports = app;

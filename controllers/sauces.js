@@ -77,5 +77,49 @@ exports.likeDislikeSauce = (req, res, next) => {
 
     /** L'instruction switch pour évaluer l'expression et, 
      * selon le résultat obtenu et le cas associé, 
-     * exécuter les instructions correspondantes. */
+     * exécuter les instructions correspondantes.
+     * Et on ajoutera brak pour finir l'instruction switch.
+     * On va utiliser includes() permet de déterminer si un tableau contient 
+     * une valeur et renvoie true si c'est le cas, false sinon. Selon
+     * la réponse grâce à $pull on modifiera les infos pour les likes car 
+     * il va enlever les infos existantes selectionné dans la db mongo db 
+     * et $push ajoutera des infos */
+
+     switch (like) {
+        case -1: // dislike vaut -1 
+            Sauce.updateOne({ _id: req.params.id }, { $push: {usersDisliked: userId }, $inc: { dislikes: +1 }})
+                .then(() => res.status(200).json({ message: `J'aime pas :(` }))
+                .catch(error => res.status(400).json({ error }));          
+        break; // on a un break a ce niveau donc les instructions
+        // des cas suivants ne seront pas exécutées
+
+        case 0: // Sans avis vaut 0 
+            Sauce.findOne({ _id: req.params.id })
+            .then(sauce => {
+                if (sauce.usersLiked.includes(userId)) {
+                    Sauce.updateOne({ _id: req.params.id }, { $pull: {usersLiked: userId }, $inc: { likes: -1 }})
+                        .then(() => res.status(200).json({ message: `Sans Avis` }))
+                        .catch(error => res.status(400).json({ error }));
+                }
+                if (sauce.usersDisliked.includes(userId)) {
+                    Sauce.updateOne({ _id: req.params.id }, { $pull: {usersDisliked: userId }, $inc: { dislikes: -1 }})
+                        .then(() => res.status(200).json({ message: `Sans Avis` }))
+                        .catch(error => res.status(400).json({ error }));
+                }
+            })
+            .catch(error => res.status(500).json({ error }));
+        break; // on a un break a ce niveau donc les instructions
+               // des cas suivants ne seront pas exécutées
+        
+        case 1: // like vaut 1
+            Sauce.updateOne({ _id: req.params.id }, { $push: {usersLiked: userId }, $inc: { likes: +1 }})
+                .then(() => res.status(200).json({ message: `J'aime :)` }))
+                .catch(error => res.status(400).json({ error }));
+        break; // on a un break a ce niveau donc les instructions
+               // des cas suivants ne seront pas exécutées
+        
+        default:
+            console.log('default');
+    }
+
 };

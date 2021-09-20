@@ -16,7 +16,7 @@ const bodyParser = require('body-parser');
  const path = require('path');
 
  /** Importation du router */
-const sauceRoutes = require('./routes/sauce');
+const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
 /** Notre application */
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 module.exports = app;

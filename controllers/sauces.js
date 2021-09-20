@@ -6,18 +6,18 @@ const Sauce = require('../models/Sauce');
  */
 const fs = require('fs');
 
-exports.createSauce = (req, res, next) => {
-    /** pour retirer le champs id de la requete */
+/** pour retirer le champs id de la requete */
     /** Objet js sous forme de chaine de caractère à transformer en objet */
-    const sauceObject = JSON.parse(req.body.sauce)
-    delete sauceObject._id;
-    const sauce = new Sauce({
-        /** Copie des champs du modèle dans la requetes */
-        ...sauceObject,
-        /** modification url de l'image généré par multer,
+    /** Copie des champs du modèle dans la requetes */
+    /** modification url de l'image généré par multer,
          * du coup on va générer l'url de l'image dynamique pour éviter
          * les soucis en production
          */
+exports.createSauce = (req, res, next) => {
+    const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id;
+    const sauce = new Sauce({
+        ...sauceObject,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save()
@@ -45,8 +45,8 @@ exports.deleteSauce = (req, res, next) => {
             const filename = sauce.imageUrl.split('/images/')[1];
             fs.unlink(`images/${filename}`, () => {
                 Sauce.deleteOne({ _id:req.param.id })
-                .then(() => res.status(200).json({ message: 'Objet supprimé !' }))
-                .catch(error => res.status(400).json({ error }));
+                    .then(() => res.status(200).json({ message: 'Objet supprimé !' }))
+                    .catch(error => res.status(400).json({ error }));
             });
         })
         .catch(error => res.status(500).json({ error }));

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     try {  
         const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, 'CLE_SECRETE_POUR_ENCODAGE_LOCAL');
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SK);
         const userId = decodedToken.userId;
         /** si le user id est différent de celui dans la db on renvoi une erreur
          * sinon on continue normalement

@@ -34,10 +34,10 @@ exports.modifySauce = (req, res, next) => {
     const sauceObject = req.file ?
         {
            ...JSON.parse(req.body.sauce),
-           imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
+           imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         } : { ...req.body };
     /** modification d'une sauce dans la base de données */
-    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id:req.params.id })
+    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Objet modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
